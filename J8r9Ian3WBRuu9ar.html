@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drill to the Core</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        #game-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        #drill-display {
+            height: 200px;
+            background-color: #000;
+            border: 2px solid #333;
+            border-radius: 5px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        #drill-bit {
+            width: 30px;
+            height: 50px;
+            background-color: #555;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px 5px 0 0;
+        }
+        #depth-meter {
+            margin: 10px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
+            background-color: #45a049;
+        }
+        #upgrades {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .upgrade {
+            background-color: #333;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            width: 45%;
+        }
+        #inventory {
+            margin-top: 20px;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #dialogue {
+            min-height: 50px;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #252525;
+            border-radius: 5px;
+            font-style: italic;
+        }
+        .ore {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Drill to the Core</h1>
+        
+        <div id="dialogue">
+            "Commander, we've detected unusual readings beneath the surface. Take the drill and find out what's down there. 
+            Watch your fuel levels and collect any ores you find - they might help fund better equipment."
+        </div>
+        
+        <div id="drill-display">
+            <div id="drill-bit"></div>
+            <!-- Ores will appear here dynamically -->
+        </div>
+        
+        <div id="depth-meter">
+            Depth: <span id="depth">0</span> meters
+        </div>
+        
+        <div>
+            Fuel: <span id="fuel">10</span>ml | 
+            Money: $<span id="money">0</span> | 
+            Drill Power: <span id="power">1</span>
+        </div>
+        
+        <button id="drill-btn">DRILL (10ml/s)</button>
+        <button id="refuel-btn">Refuel (1ml = $1)</button>
+        
+        <div id="inventory">
+            <h3>Inventory</h3>
+            <div id="ores-list"></div>
+            <button id="sell-all-btn">Sell All Ores</button>
+        </div>
+        
+        <div id="upgrades">
+            <h3>Upgrades</h3>
+            <div class="upgrade">
+                <h4>Fuel Tank</h4>
+                <p>Increase max fuel by 10ml</p>
+                <p>Cost: $<span class="upgrade-cost">50</span></p>
+                <button class="buy-btn" data-upgrade="fuel">Buy</button>
+            </div>
+            <div class="upgrade">
+                <h4>Drill Power</h4>
+                <p>Drill 1m deeper per second</p>
+                <p>Cost: $<span class="upgrade-cost">100</span></p>
+                <button class="buy-btn" data-upgrade="power">Buy</button>
+            </div>
+            <div class="upgrade">
+                <h4>Fuel Efficiency</h4>
+                <p>Reduce fuel consumption by 10%</p>
+                <p>Cost: $<span class="upgrade-cost">200</span></p>
+                <button class="buy-btn" data-upgrade="efficiency">Buy</button>
+            </div>
+            <div class="upgrade">
+                <h4>Ore Scanner</h4>
+                <p>Find ores more frequently</p>
+                <p>Cost: $<span class="upgrade-cost">150</span></p>
+                <button class="buy-btn" data-upgrade="scanner">Buy</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
